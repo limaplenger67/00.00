@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Psst... ada sesuatu nih 🎂</title>
+<link href="https://fonts.googleapis.com/css2?family=Chewy&family=Patrick+Hand&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#fff3e0;
+    --peach:#ffb89a;
+    --coral:#ff6f61;
+    --mint:#a8e6cf;
+    --butter:#ffe066;
+    --lilac:#c7b6ff;
+    --ink:#3b2a3f;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:'Patrick Hand',cursive;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at 15% 20%, #ffd6c0 0, transparent 40%),
+      radial-gradient(circle at 85% 80%, #d9ccff 0, transparent 40%),
+      var(--cream);
+    overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+  }
+
+  /* hiasan melayang */
+  .float{position:fixed;font-size:28px;opacity:.55;animation:bob 6s ease-in-out infinite;pointer-events:none;z-index:0}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-18px) rotate(8deg)}}
+
+  .stage{position:relative;z-index:2;width:min(92vw,460px);text-align:center}
+
+  .card{
+    background:#fff;
+    border:3px solid var(--ink);
+    border-radius:28px;
+    padding:32px 24px 28px;
+    box-shadow:8px 8px 0 var(--ink);
+    animation:pop .5s cubic-bezier(.2,1.6,.4,1);
+    transform:rotate(-1deg);
+  }
+  @keyframes pop{from{transform:scale(.6) rotate(-6deg);opacity:0}to{transform:scale(1) rotate(-1deg);opacity:1}}
+
+  .emoji{font-size:54px;display:block;margin-bottom:8px;animation:wiggle 1.6s ease-in-out infinite}
+  @keyframes wiggle{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}
+
+  h1{font-family:'Chewy',cursive;font-weight:400;font-size:2.1rem;line-height:1.15;margin-bottom:6px}
+  .sub{font-size:1.2rem;opacity:.75;margin-bottom:22px}
+
+  button{
+    font-family:'Chewy',cursive;
+    font-size:1.25rem;
+    padding:12px 28px;
+    border:3px solid var(--ink);
+    border-radius:999px;
+    background:var(--butter);
+    color:var(--ink);
+    cursor:pointer;
+    box-shadow:4px 4px 0 var(--ink);
+    transition:transform .12s, box-shadow .12s;
+  }
+  button:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+  button:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+
+  .dots{margin-top:18px;display:flex;gap:8px;justify-content:center}
+  .dots i{width:12px;height:12px;border-radius:50%;border:2px solid var(--ink);background:#fff}
+  .dots i.on{background:var(--coral)}
+
+  /* ---------- MEME BERSIAPLAH (tanpa gambar) ---------- */
+  .meme{
+    border:3px solid var(--ink);
+    border-radius:18px;
+    margin-bottom:18px;
+    padding:26px 10px 16px;
+    background:linear-gradient(180deg,#d9d9de 0,#bfc0c6 100%);
+    box-shadow:5px 5px 0 var(--ink);
+    overflow:hidden;
+  }
+  .walk{display:flex;justify-content:center;align-items:flex-end;gap:10px;height:96px}
+  .guy{position:relative;width:34px;border-radius:14px 14px 5px 5px;border:2.5px solid var(--ink);animation:step .7s ease-in-out infinite}
+  .guy::before{content:"";position:absolute;top:-24px;left:50%;transform:translateX(-50%);width:22px;height:22px;border-radius:50%;background:#8d5a3b;border:2.5px solid var(--ink)}
+  .guy::after{content:"";position:absolute;top:6px;left:50%;transform:translateX(-50%);width:8px;height:20px;background:#fff;clip-path:polygon(0 0,100% 0,50% 100%);opacity:.85}
+  .g1{background:#f6b93b;height:70px}
+  .g2{background:#8ec5e8;height:64px;animation-delay:.14s}
+  .g3{background:#b9b3a5;height:62px;animation-delay:.28s}
+  .g4{background:#24408e;height:64px;animation-delay:.42s}
+  .g5{background:#a3202f;height:62px;animation-delay:.56s}
+  @keyframes step{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  .bersiap{
+    margin-top:18px;
+    font-family:'Chewy',cursive;
+    font-size:2.5rem;
+    line-height:1;
+    color:#fff;
+    letter-spacing:1px;
+    -webkit-text-stroke:7px #000;
+    paint-order:stroke fill;
+    animation:thump .9s ease-in-out infinite;
+  }
+  @keyframes thump{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+
+  .hint{font-size:1.2rem;line-height:1.3;min-height:3.2em;display:flex;align-items:center;justify-content:center}
+  .hint b{font-family:'Chewy';font-weight:400;background:var(--butter);border:2px solid var(--ink);border-radius:8px;padding:0 7px;margin:0 3px}
+
+  /* tombol y rahasia di pojok layar */
+  .secret{
+    position:fixed;
+    z-index:6;
+    font-family:'Chewy',cursive;
+    font-size:.5rem;
+    line-height:1;
+    padding:2px 6px;
+    border:1.5px solid var(--ink);
+    border-radius:999px;
+    background:var(--butter);
+    color:var(--ink);
+    cursor:pointer;
+    box-shadow:1px 1px 0 var(--ink);
+    opacity:.55;
+    transform:scale(var(--s,1));
+    transition:transform .3s cubic-bezier(.2,1.7,.4,1), opacity .3s;
+  }
+  .secret:hover,.secret:active{transform:scale(var(--s,1));box-shadow:1px 1px 0 var(--ink);opacity:1}
+  .secret.boing{animation:boing .35s}
+  @keyframes boing{0%{filter:brightness(1)}40%{filter:brightness(1.25)}100%{filter:brightness(1)}}
+
+  /* ---------- SURAT ---------- */
+  #letterWrap{display:none;position:fixed;inset:0;z-index:5;align-items:center;justify-content:center;padding:18px;overflow-y:auto}
+  .letter{
+    width:min(94vw,520px);
+    background:#fffdf7;
+    border:3px solid var(--ink);
+    border-radius:20px;
+    padding:30px 26px;
+    box-shadow:8px 8px 0 var(--ink);
+    animation:slideUp .9s cubic-bezier(.2,1.2,.4,1);
+    margin:auto;
+    font-family:'Poppins',sans-serif;
+  }
+  @keyframes slideUp{from{transform:translateY(120px) rotate(4deg);opacity:0}to{transform:translateY(0) rotate(-.6deg);opacity:1}}
+  .letter h2{font-family:'Poppins',sans-serif;font-weight:700;font-size:1.45rem;line-height:1.3;color:var(--coral);margin-bottom:14px}
+  .letter p{font-family:'Poppins',sans-serif;font-weight:400;font-size:.95rem;line-height:1.75;margin-bottom:12px;color:#3b2a3f}
+  .sign{text-align:right;font-weight:600 !important;margin-top:16px}
+
+  canvas{position:fixed;inset:0;z-index:4;pointer-events:none}
+  .hidden{display:none !important}
+</style>
+</head>
+<body>
+
+<span class="float" style="top:10%;left:8%">🎈</span>
+<span class="float" style="top:18%;right:10%;animation-delay:1s">✨</span>
+<span class="float" style="bottom:14%;left:12%;animation-delay:2s">🎉</span>
+<span class="float" style="bottom:10%;right:8%;animation-delay:.5s">🍰</span>
+
+<div class="stage" id="stage"></div>
+
+<canvas id="fx"></canvas>
+
+<div id="letterWrap">
+  <div class="letter">
+    <!-- GANTI ISI SURAT DI BAWAH INI -->
+    <h2>HABEDEEEE, IPUT SUCI NURR! 🎂</h2>
+    <p>WOI IPUT NUR,</p>
+    <p>met 3^3-2*2-1 ya! makasi udah jadi orang yang nyebelin dan bikin hari-hari jadi lebih seru, preett</p>
+    <p>semoga umur baru ini isinya hal-hal baik, aamiin, rezeki lancar, aamiin, panjang umur, aamiin, dan semoga semua yang lagi lu kejar pelan-pelan jadi kenyataan, aamiin. termasuk aa? WKKWKWKKWKWKKWK</p>
+    <p>jaga kesehatan selalu, sabar-sabar ya ngadepin gue selama pkm dst HEHEHEHEH. pls inget, lu kudu dapet cowo yang effortnya setinggi langit ya anjir, yakali kalo lu ultah dll dikasi coklat ama kue doang, gue aja bikin ginian jir???????? p muncak.. SEKALI LAGI, HBD IPUT NUR, LOF U, ENJOY UR DAY YAAAAAAA, JANGAN SEDIH-SEDIH TERUS, kalo lagi sedih tunjukin/cerita aja, gausa pura-pura seneng haha hihi, semangat pkmnya sampe akhirr putt, letsgoo hajar skripsi 24/7</p>
+    <p class="sign">- mel si cecan, cool, baik hati dan tidak sombong wkwkkw</p>
+    <!-- SAMPAI SINI -->
+  </div>
+</div>
+
+<script>
+/* ---------- FLOW ---------- */
+const steps = [
+  { emoji:"🤨", title:"WAKWAAAWWW", sub:"nyari apaan banh?", btn:"Next" },
+  { emoji:"🔎", title:"ikan hiu makan tomat", sub:"makan tomat ikan hiu", btn:"Next" },
+  { meme:true }
+];
+let cur = 0;
+const stage = document.getElementById('stage');
+
+function dots(){
+  return `<div class="dots">${steps.map((_,i)=>`<i class="${i===cur?'on':''}"></i>`).join('')}</div>`;
+}
+
+function render(){
+  const s = steps[cur];
+  if(s.meme){
+    stage.innerHTML = `
+      <div class="card">
+        <div class="meme">
+          <div class="walk">
+            <div class="guy g1"></div>
+            <div class="guy g2"></div>
+            <div class="guy g3"></div>
+            <div class="guy g4"></div>
+            <div class="guy g5"></div>
+          </div>
+          <div class="bersiap">BERSIAPLAH</div>
+        </div>
+        <p class="hint" id="hint">Cari tombol <b>y</b> terus pencet</p>
+        ${dots()}
+      </div>`;
+    spawnSecret();
+  } else {
+    stage.innerHTML = `
+      <div class="card">
+        <span class="emoji">${s.emoji}</span>
+        <h1>${s.title}</h1>
+        <p class="sub">${s.sub}</p>
+        <button id="nextBtn">${s.btn}</button>
+        ${dots()}
+      </div>`;
+    document.getElementById('nextBtn').onclick = next;
+  }
+}
+
+function next(){
+  initAudio();
+  cur++;
+  if(cur < steps.length) render();
+  else celebrate();
+}
+render();
+
+/* ---------- AUDIO DASAR (tanpa file, dibuat pakai WebAudio) ---------- */
+let actx;
+function initAudio(){
+  if(!actx){ actx = new (window.AudioContext||window.webkitAudioContext)(); }
+  if(actx.state==='suspended') actx.resume();
+}
+function tone(freq, start, dur, type, vol){
+  const o = actx.createOscillator(); o.type = type; o.frequency.value = freq;
+  const g = actx.createGain();
+  g.gain.setValueAtTime(0, start);
+  g.gain.linearRampToValueAtTime(vol, start+.03);
+  g.gain.exponentialRampToValueAtTime(.001, start+dur*.95);
+  o.connect(g).connect(actx.destination);
+  o.start(start); o.stop(start+dur);
+}
+
+/* ---------- TOMBOL Y RAHASIA ---------- */
+const scales  = [1, 2.5, 4.5, 7, 10];        // ukuran tiap pencetan
+const messages = [
+  "",
+  "WWKWKKWKWKKW",
+  "pucuk ubi pucuk singkong",
+  "gue tau lu pasti lagi senyam senyum",
+  "jadi....kapan prabs lengser?"
+];
+let secretClicks = 0;
+
+function spawnSecret(){
+  secretClicks = 0;
+  const old = document.getElementById('secretBtn');
+  if(old) old.remove();
+
+  const corners = [
+    {top:'14px',    left:'14px',   o:'top left'},
+    {top:'14px',    right:'14px',  o:'top right'},
+    {bottom:'14px', left:'14px',   o:'bottom left'},
+    {bottom:'14px', right:'14px',  o:'bottom right'}
+  ];
+  const c = corners[Math.floor(Math.random()*corners.length)];
+
+  const b = document.createElement('button');
+  b.id = 'secretBtn';
+  b.className = 'secret';
+  b.textContent = 'y';
+  ['top','bottom','left','right'].forEach(k=>{ if(c[k]) b.style[k]=c[k]; });
+  b.style.transformOrigin = c.o;
+  b.style.setProperty('--s', scales[0]);
+  b.onclick = pressSecret;
+  document.body.appendChild(b);
+}
+
+function pressSecret(){
+  initAudio();
+  secretClicks++;
+  const b = document.getElementById('secretBtn');
+
+  // bunyi "pip" nadanya naik tiap pencetan
+  if(actx) tone(330 + secretClicks*110, actx.currentTime, .16, 'square', .1);
+
+  if(secretClicks >= 5){
+    b.remove();
+    cur++;            // lanjut ke kembang api + surat
+    celebrate();
+    return;
+  }
+
+  b.style.setProperty('--s', scales[secretClicks]);
+  b.classList.remove('boing'); void b.offsetWidth; b.classList.add('boing');
+
+  const hint = document.getElementById('hint');
+  if(hint) hint.textContent = messages[secretClicks];
+}
+
+/* ---------- EFEK KEMBANG API ---------- */
+function boom(){
+  if(!actx) return;
+  const t = actx.currentTime;
+  const len = actx.sampleRate*0.6;
+  const buf = actx.createBuffer(1,len,actx.sampleRate);
+  const d = buf.getChannelData(0);
+  for(let i=0;i<len;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/len,3);
+  const src = actx.createBufferSource(); src.buffer=buf;
+  const f = actx.createBiquadFilter(); f.type='lowpass'; f.frequency.value=500;
+  const g = actx.createGain(); g.gain.setValueAtTime(.5,t); g.gain.exponentialRampToValueAtTime(.001,t+.6);
+  src.connect(f).connect(g).connect(actx.destination); src.start(t);
+}
+function crackle(){
+  if(!actx) return;
+  for(let i=0;i<8;i++){
+    const t = actx.currentTime + Math.random()*.35;
+    const o = actx.createOscillator(); o.type='square';
+    o.frequency.value = 1200+Math.random()*2500;
+    const g = actx.createGain(); g.gain.setValueAtTime(.035,t); g.gain.exponentialRampToValueAtTime(.001,t+.05);
+    o.connect(g).connect(actx.destination); o.start(t); o.stop(t+.06);
+  }
+}
+
+/* ---------- LAGU HAPPY BIRTHDAY (2 bait + penutup), DIULANG TERUS ---------- */
+function birthdayTune(){
+  if(!actx) return 0;
+  const N = {C4:261.63,D4:293.66,E4:329.63,F4:349.23,G4:392,A4:440,Bb4:466.16,C5:523.25,D5:587.33,E5:659.25,F5:698.46,G5:783.99};
+  const verse = [
+    ['C4',.75],['C4',.25],['D4',1],['C4',1],['F4',1],['E4',2],
+    ['C4',.75],['C4',.25],['D4',1],['C4',1],['G4',1],['F4',2],
+    ['C4',.75],['C4',.25],['C5',1],['A4',1],['F4',1],['E4',1],['D4',2],
+    ['Bb4',.75],['Bb4',.25],['A4',1],['F4',1],['G4',1],['F4',3]
+  ];
+
+  const begin = actx.currentTime;
+  let t = begin + .4;
+
+  // Bait 1: pelan
+  const beat1 = .5;
+  verse.forEach(([k,b])=>{
+    tone(N[k], t, b*beat1, 'triangle', .22);
+    t += b*beat1;
+  });
+
+  t += .3;
+
+  // Bait 2: lebih cepat, oktaf naik + harmoni bawah
+  const beat2 = .4;
+  verse.forEach(([k,b])=>{
+    tone(N[k]*2, t, b*beat2, 'triangle', .16);
+    tone(N[k], t, b*beat2, 'sine', .12);
+    t += b*beat2;
+  });
+
+  // Penutup
+  t += .15;
+  const fin = [N.C4,N.E4,N.G4,N.C5,N.E5,N.G5];
+  fin.forEach((f,i)=> tone(f, t+i*.13, .35, 'triangle', .2));
+  const endT = t + fin.length*.13 + .1;
+  [N.C4,N.E4,N.G4,N.C5].forEach(f=> tone(f, endT, 1.6, 'sine', .15));
+
+  return (endT + 1.6) - begin;
+}
+
+function loopTune(){
+  const dur = birthdayTune();
+  setTimeout(loopTune, (dur + 1) * 1000);
+}
+
+/* ---------- KEMBANG API ---------- */
+const cv = document.getElementById('fx'), cx = cv.getContext('2d');
+function resize(){ cv.width=innerWidth; cv.height=innerHeight; }
+addEventListener('resize',resize); resize();
+
+const rockets=[], sparks=[];
+const palette=['#ff6f61','#ffe066','#a8e6cf','#c7b6ff','#ffb89a','#ffffff','#ff9ff3'];
+let running=false;
+
+function launch(){
+  rockets.push({
+    x: innerWidth*(.15+Math.random()*.7),
+    y: innerHeight,
+    ty: innerHeight*(.15+Math.random()*.35),
+    vy: -(9+Math.random()*3),
+    c: palette[Math.floor(Math.random()*palette.length)]
+  });
+}
+function explode(x,y,c){
+  boom(); crackle();
+  const n = 70;
+  for(let i=0;i<n;i++){
+    const a = Math.PI*2*i/n, s = 1.5+Math.random()*4.5;
+    sparks.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:1,c:Math.random()<.3?'#fff':c});
+  }
+}
+function loop(){
+  cx.globalCompositeOperation='destination-out';
+  cx.fillStyle='rgba(0,0,0,.18)'; cx.fillRect(0,0,cv.width,cv.height);
+  cx.globalCompositeOperation='lighter';
+
+  for(let i=rockets.length-1;i>=0;i--){
+    const r=rockets[i]; r.y+=r.vy; r.vy+=.12;
+    cx.fillStyle=r.c; cx.beginPath(); cx.arc(r.x,r.y,3,0,7); cx.fill();
+    if(r.vy>=-1 || r.y<=r.ty){ explode(r.x,r.y,r.c); rockets.splice(i,1); }
+  }
+  for(let i=sparks.length-1;i>=0;i--){
+    const p=sparks[i]; p.x+=p.vx; p.y+=p.vy; p.vy+=.06; p.vx*=.985; p.life-=.011;
+    if(p.life<=0){ sparks.splice(i,1); continue; }
+    cx.globalAlpha=p.life; cx.fillStyle=p.c;
+    cx.beginPath(); cx.arc(p.x,p.y,2.2,0,7); cx.fill();
+  }
+  cx.globalAlpha=1;
+  if(running) requestAnimationFrame(loop);
+}
+
+function celebrate(){
+  stage.classList.add('hidden');
+  running=true; loop();
+
+  // lagu HBD mulai dan terus berulang
+  loopTune();
+
+  // kembang api nyala terus
+  setInterval(()=>{
+    launch(); if(Math.random()<.5) launch();
+  },700);
+
+  // surat muncul setelah kembang api mulai rame
+  setTimeout(()=>{
+    document.getElementById('letterWrap').style.display='flex';
+  },2600);
+}
+</script>
+</body>
+</html>
